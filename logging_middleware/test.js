@@ -1,9 +1,11 @@
-// test.js
-
+import { generateToken } from "./generateToken.js";
 import { Log } from "./index.js";
+
+await generateToken();
+
 await Log(
-  "backend",
+  "frontend",
   "info",
-  "service",
-  "testing middleware"
+  "component",
+  "logging middleware test"
 );
