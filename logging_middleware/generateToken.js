@@ -9,12 +9,12 @@ export async function generateToken() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: process.env.EMAIL,
-        name: process.env.NAME,
-        rollNo: process.env.ROLL_NO,
-        accessCode: process.env.ACCESS_CODE,
-        clientID: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
+        email: "dhruv.23b0101190@abes.ac.in",
+        name: "Dhruv Khare",
+        rollNo: "2300320100080",
+        accessCode: "zbMtpf",
+        clientID: "2519e125-b14f-4f39-8200-e518f4450560",
+        clientSecret: "JWXCQPEKknyHyDEp",
       }),
     }
   );

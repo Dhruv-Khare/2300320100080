@@ -20,6 +20,9 @@ import { getPriorityNotifications }
 from "./utils/getPriorityNotifications";
 import Log from "./logger";
 
+//css
+import "./temp.css";
+
 function App() {
   const [notifications, setNotifications] = useState([]);
   const [pageType, setPageType] = useState("all");
@@ -127,6 +130,12 @@ function App() {
       ? priorityNotifications
       : notificationsWithStatus;
 
+      const priorityClickHandler=()=>{
+
+        setPageType("priority");  
+        setNotificationType("")
+      }
+
   return (
     <Box
       sx={{
@@ -196,16 +205,17 @@ function App() {
                     ? "contained"
                     : "outlined"
                 }
-                onClick={() => setPageType("priority")}
+                onClick={() => priorityClickHandler()}
               >
                 Priority
               </Button>
             </Stack>
-
+           
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
             >
+              {pageType!=="priority" && 
               <FormControl size="small" sx={{ minWidth: 150 }}>
                 <InputLabel>Type</InputLabel>
                 <Select
@@ -223,7 +233,8 @@ function App() {
                     Placement
                   </MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl>}
+              
 
               <FormControl size="small" sx={{ minWidth: 120 }}>
                 <InputLabel>Limit</InputLabel>
@@ -287,14 +298,25 @@ function App() {
           </Paper>
         ) : (
           <>
-            <Stack spacing={2}>
+            {/* <Stack spacing={2}>
               {visibleNotifications.map((notification) => (
                 <NotificationCard
                   key={getNotificationId(notification)}
                   notification={notification}
                 />
               ))}
-            </Stack>
+            </Stack> */}
+            <div id="card-container">
+              <div>
+          {visibleNotifications.map((notification) => (
+                <NotificationCard
+                  key={getNotificationId(notification)}
+                  notification={notification}
+                />
+              ))}
+              </div>
+              
+            </div>
 
             <Stack
               alignItems="center"
