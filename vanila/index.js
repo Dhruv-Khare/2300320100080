@@ -5,6 +5,7 @@
 // Fahrenheit to Kelvin: K = (F-32) (5/9) + 273.15
 // Kelvin to Fahrenheit: F = (K-273.15) (9/5) + 32
 
+const body = document.body;
 const form = document.getElementById("form-container");
 const input = document.getElementById("temp-input");
 const selects = document.querySelectorAll("select");
@@ -41,6 +42,18 @@ function convertTemperature(value, sourceUnit, targetUnit) {
     return celsiusValue + 273.15;
 }
 
+function toCelsius(value, unit) {
+    if (unit === "celsius") {
+        return value;
+    }
+
+    if (unit === "fahrenheit") {
+        return (value - 32) * (5 / 9);
+    }
+
+    return value - 273.15;
+}
+
 function formatResult(value, unit) {
     const unitLabels = {
         celsius: "°C",
@@ -51,6 +64,27 @@ function formatResult(value, unit) {
     return `${value.toFixed(2)} ${unitLabels[unit]}`;
 }
 
+function applyWeatherTheme(celsiusValue) {
+    body.classList.remove("weather-default", "weather-cold", "weather-mild", "weather-hot");
+
+    if (celsiusValue <= 10) {
+        body.classList.add("weather-cold");
+        return;
+    }
+
+    if (celsiusValue < 30) {
+        body.classList.add("weather-mild");
+        return;
+    }
+
+    body.classList.add("weather-hot");
+}
+
+function resetWeatherTheme() {
+    body.classList.remove("weather-cold", "weather-mild", "weather-hot");
+    body.classList.add("weather-default");
+}
+
 function runConversion() {
     const rawValue = input.value.trim();
     const enteredValue = Number(rawValue);
@@ -58,17 +92,20 @@ function runConversion() {
     if (rawValue === "" || Number.isNaN(enteredValue)) {
         result.textContent = "Please enter a valid number";
         result.style.color = "#dc2626";
+        resetWeatherTheme();
         return;
     }
 
+    const sourceCelsiusValue = toCelsius(enteredValue, fromUnit.value);
     const convertedValue = convertTemperature(
         enteredValue,
         fromUnit.value,
         toUnit.value
     );
 
+    applyWeatherTheme(sourceCelsiusValue);
     result.textContent = formatResult(convertedValue, toUnit.value);
-    result.style.color = "#0f766e";
+    result.style.color = "";
 }
 
 swapButton.addEventListener("click", () => {
@@ -91,5 +128,6 @@ toUnit.addEventListener("change", runConversion);
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
+    clearTimeout(typingTimer);
     runConversion();
 });

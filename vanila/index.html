@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Temperature Converter</title>
     <link rel="stylesheet" href="index.css">
 </head>
-<body>
+<body class="weather-default">
+    <div class="weather-scene" aria-hidden="true">
+        <div class="sky-glow"></div>
+        <div class="orb"></div>
+        <div class="drift drift-one"></div>
+        <div class="drift drift-two"></div>
+        <div class="particles"></div>
+    </div>
+
     <div id="container">
         <form action="" id="form-container">
-            <input type="text" id="temp-input" placeholder="Enter the temperatur value...">
+            <h1>Temperature Converter</h1>
+            <p class="subtitle">Convert any temperature and watch the weather mood change.</p>
+            <input type="text" id="temp-input" placeholder="Enter the temperature value...">
             <select name="" id="select">
                 <option value="celsius">celsius</option>
                 <option value="fahrenheit">Fahrenheit</option>
